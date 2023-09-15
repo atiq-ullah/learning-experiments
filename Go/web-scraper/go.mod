@@ -4,6 +4,7 @@ go 1.21.1
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
+	github.com/charmbracelet/bubbletea v0.24.2
 	github.com/gocolly/colly v1.2.0
 )
 
@@ -13,7 +14,6 @@ require (
 	github.com/antchfx/xmlquery v1.2.4 // indirect
 	github.com/antchfx/xpath v1.1.8 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
-	github.com/charmbracelet/bubbletea v0.24.2 // indirect
 	github.com/containerd/console v1.0.4-0.20230313162750-1ae8d489ac81 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect

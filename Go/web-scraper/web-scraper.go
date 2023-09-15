@@ -9,7 +9,7 @@ import (
 	"github.com/gocolly/colly"
 )
 
-func main() {
+func scrape() {
 	c := colly.NewCollector()
 
 	c.OnHTML("a[data-track]", func(e *colly.HTMLElement) {
