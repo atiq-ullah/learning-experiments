@@ -1,7 +1,6 @@
-package main
+package scrape
 
 import (
-	"fmt"
 	"log"
 	"strings"
 
@@ -9,19 +8,20 @@ import (
 	"github.com/gocolly/colly"
 )
 
-func scrape() {
+func Scrape() []string {
 	c := colly.NewCollector()
-
+	var movies []string
 	c.OnHTML("a[data-track]", func(e *colly.HTMLElement) {
 		e.DOM.Find("span.p--small").Each(func(index int, item *goquery.Selection) {
-			fmt.Print(strings.TrimSpace(item.Text()))
-			fmt.Print(" | ")
+			movies = append(movies, strings.TrimSpace(item.Text()))
+			// fmt.Print(" | ")
 		})
 
 		e.DOM.Find("span.smaller").Each(func(index int, item *goquery.Selection) {
-			fmt.Println(strings.TrimSpace(item.Text()))
+			// fmt.Println(strings.TrimSpace(item.Text()))
 		})
 	})
+
 	c.OnError(func(r *colly.Response, err error) {
 		log.Println("Something went wrong:", err)
 	})
@@ -30,4 +30,9 @@ func scrape() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	c.Wait()
+
+	// Print the list of movies
+	return movies
 }

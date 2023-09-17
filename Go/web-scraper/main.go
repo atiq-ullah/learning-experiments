@@ -3,22 +3,37 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"web-scraper/render"
+	"web-scraper/scrape"
 )
 
-// helloHandler responds with "Hello, world!"
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, world!")
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Hello world!")
 }
 
-// movieHandler responds with "Movie info."
-func movieHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Movie info.")
+func host() {
+	// Register route handlers
+	http.HandleFunc("/", indexHandler)
+
+	// Start the HTTP server on port 8080
+	fmt.Println("Server running on http://localhost:8080")
+	http.ListenAndServe(":8080", nil)
 }
 
 func main() {
+	// Grab all the data first
+	movies := scrape.Scrape()
+	fmt.Println("Movies:", movies)
+
+	// Render the template using the data
+	// Need to pass in the data from scraping
+
+	// Start the server
 	// Register route handlers
-	http.HandleFunc("/", helloHandler)
-	http.HandleFunc("/movie", movieHandler)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		output := render.RenderTemplate(movies)
+		fmt.Fprint(w, output)
+	})
 
 	// Start the HTTP server on port 8080
 	fmt.Println("Server running on http://localhost:8080")
